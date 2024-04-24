@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Flight</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="checkbox"],
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        button[type="submit"] {
+            background-color: #dc3545;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Delete Flight</h2>
+    <form id="deleteFlightForm" method="DELETE" action="/airline/">
+        <label for="flightNumber">Flight Number:</label><br>
+        <input type="text" id="flightNumber" name="flightNumber" required><br>
+        <label for="xml">Include XML:</label><br>
+        <input type="checkbox" id="xml" name="xml"><br>
+        <button type="submit">Delete Flight</button>
+    </form>
+
+    <script>
+        document.getElementById("deleteFlightForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            var flightNumber = document.getElementById("flightNumber").value;
+            var xmlChecked = document.getElementById("xml").checked;
+            var xmlQueryParam = xmlChecked ? "?xml=true" : "";
+            var deleteUrl = "/airline/" + flightNumber + xmlQueryParam;
+            fetch(deleteUrl, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to delete flight');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    alert(data.message);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to delete flight');
+                });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Get Reservation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="checkbox"],
+        input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        input[type="button"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover {
+            background-color: #0056b3;
+        }
+
+        #reservationDetails {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+            width: 400px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail {
+            margin-bottom: 5px;
+            overflow: auto;
+        }
+
+        .label {
+            font-weight: bold;
+            float: left;
+            width: 120px;
+        }
+
+        .value {
+            margin-left: 120px;
+            word-break: break-all;
+        }
+    </style>
+    <script>
+        function getReservation() {
+            var number = document.getElementById("number").value;
+            var xml = document.getElementById("xml").checked;
+            var url = "/reservation/" + number + "?xml=" + xml;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", url, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    displayReservationDetails(response);
+                } else if (xhr.readyState == 4 && xhr.status == 400) {
+                    var error = JSON.parse(xhr.responseText);
+                    document.getElementById("reservationDetails").innerHTML = "Error: " + error.message;
+                }
+            };
+            xhr.send();
+        }
+
+        function displayReservationDetails(reservation) {
+            var detailsDiv = document.getElementById("reservationDetails");
+            detailsDiv.innerHTML = "";
+
+            Object.keys(reservation).forEach(function (key) {
+                var detailDiv = document.createElement("div");
+                detailDiv.classList.add("detail");
+
+                var labelSpan = document.createElement("span");
+                labelSpan.classList.add("label");
+                labelSpan.textContent = key + ": ";
+
+                var valueSpan = document.createElement("span");
+                valueSpan.classList.add("value");
+                if (typeof reservation[key] === 'object') {
+                    valueSpan.textContent = JSON.stringify(reservation[key], null, 2);
+                } else {
+                    valueSpan.textContent = reservation[key];
+                }
+
+                detailDiv.appendChild(labelSpan);
+                detailDiv.appendChild(valueSpan);
+                detailsDiv.appendChild(detailDiv);
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Get Reservation</h1>
+    <form>
+        <label for="number">Reservation Number:</label>
+        <input type="text" id="number" required><br><br>
+        <label for="xml">XML Format:</label>
+        <input type="checkbox" id="xml" value="true"><br><br>
+        <input type="button" value="Submit" onclick="getReservation()">
+    </form>
+    <div id="reservationDetails"></div>
+</body>
+
+</html>

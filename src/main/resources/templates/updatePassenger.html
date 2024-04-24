@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Passenger</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="submit"]:focus {
+            outline: none;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            border-color: #007bff;
+        }
+
+        input[type="text"]:invalid {
+            border-color: #dc3545;
+        }
+
+        #xml {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Update Passenger</h1>
+    <form id="updatePassengerForm" method="PUT">
+        <!-- ID -->
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id" required>
+
+        <!-- First Name -->
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" name="firstname" required>
+
+        <!-- Last Name -->
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname" name="lastname" required>
+
+        <!-- Age -->
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age" required>
+
+        <!-- Gender -->
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <!-- Phone -->
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" required>
+
+        <!-- XML (Optional) -->
+        <label for="xml">XML:</label>
+        <input type="text" id="xml" name="xml">
+
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+        // Script to handle form submission
+        document.getElementById("updatePassengerForm").addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Get the form data
+            const formData = new FormData(this);
+
+            // Get the ID from the form
+            const id = formData.get("id");
+
+            // Construct the endpoint with the ID
+            const endpoint = "/passenger/" + id;
+
+            // Make the PUT request to the constructed endpoint
+            fetch(endpoint, {
+                method: "PUT",
+                body: formData
+            })
+                .then(response => {
+                    // Handle the response
+                    if (response.ok) {
+                        alert("Passenger updated successfully!");
+                    } else {
+                        alert("Failed to update passenger. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred. Please try again later.");
+                });
+        });
+    </script>
+</body>
+
+</html>

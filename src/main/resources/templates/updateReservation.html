@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Reservation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button[type="button"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button[type="button"]:hover {
+            background-color: #0056b3;
+        }
+
+        button[type="button"]:focus {
+            outline: none;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #result h3 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        #result p {
+            margin: 5px 0;
+        }
+
+        #result ul {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Update Reservation</h2>
+    <form id="updateForm">
+        <label for="number">Reservation Number:</label>
+        <input type="text" name="number" required><br><br>
+
+        <label for="flightsAdded">Flights Added (Comma separated):</label>
+        <input type="text" name="flightsAdded"><br><br>
+
+        <label for="flightsRemoved">Flights Removed (Comma separated):</label>
+        <input type="text" name="flightsRemoved"><br><br>
+
+        <label for="xml">XML Data (if any):</label>
+        <textarea name="xml" rows="4" cols="50"></textarea><br><br>
+
+        <button type="button" onclick="submitForm()">Update Reservation</button>
+    </form>
+
+    <div id="result"></div>
+
+    <script>
+        function submitForm() {
+            var form = document.getElementById("updateForm");
+            var formData = new FormData(form);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/reservation/" + formData.get("number"), true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    var resultDiv = document.getElementById("result");
+                    resultDiv.innerHTML = "<h3>Reservation Details:</h3>";
+                    resultDiv.innerHTML += "<p><strong>Reservation Number:</strong> " + response.reservationNumber + "</p>";
+                    resultDiv.innerHTML += "<p><strong>Origin:</strong> " + response.origin + "</p>";
+                    resultDiv.innerHTML += "<p><strong>Destination:</strong> " + response.destination + "</p>";
+                    resultDiv.innerHTML += "<p><strong>Price:</strong> $" + response.price + "</p>";
+                    resultDiv.innerHTML += "<p><strong>Passenger:</strong> " + response.passenger.firstName + " " + response.passenger.lastName + "</p>";
+                    resultDiv.innerHTML += "<h4>Flights:</h4>";
+                    resultDiv.innerHTML += "<ul>";
+                    response.flights.forEach(function (flight) {
+                        resultDiv.innerHTML += "<li>Flight Number: " + flight.flightNumber + ", From: " + flight.origin + ", To: " + flight.destination + "</li>";
+                    });
+                    resultDiv.innerHTML += "</ul>";
+                }
+            };
+            xhr.send(formData);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Delete Passenger</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #dc3545;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #c82333;
+        }
+
+        #response {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Delete Passenger</h2>
+    <form id="deleteForm">
+        <label for="passengerId">Passenger ID:</label><br>
+        <input type="text" id="passengerId" name="passengerId" required><br>
+
+        <label for="xml">XML Data (optional):</label><br>
+        <input type="text" id="xml" name="xml"><br>
+
+        <input type="submit" value="Delete Passenger">
+    </form>
+
+    <div id="response"></div>
+
+    <script>
+        document.getElementById("deleteForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            var passengerId = document.getElementById("passengerId").value;
+            var xmlData = document.getElementById("xml").value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("DELETE", "/passenger/" + passengerId + "?xml=" + xmlData, true);
+            xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    var responseDiv = document.getElementById("response");
+                    if (xhr.status === 200) {
+                        responseDiv.innerHTML = "<p>Passenger with ID " + passengerId + " has been deleted successfully.</p>";
+                    } else {
+                        responseDiv.innerHTML = "<p>Error: " + xhr.responseText + "</p>";
+                    }
+                }
+            };
+            xhr.send();
+        });
+    </script>
+</body>
+
+</html>

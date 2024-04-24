@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passenger Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="checkbox"],
+        button[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        button[type="button"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button[type="button"]:hover {
+            background-color: #0056b3;
+        }
+
+        #passengerDetailsContainer {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #passengerDetailsContainer h2 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        #passengerDetailsContainer p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Passenger Details</h1>
+    <form id="passengerForm">
+        <label for="id">Enter Passenger ID:</label>
+        <input type="text" id="id" name="id" required>
+        <br>
+        <label for="xml">Include XML Format (Optional):</label>
+        <input type="checkbox" id="xml" name="xml" value="true">
+        <br>
+        <button type="button" onclick="getPassengerDetails()">Get Passenger Details</button>
+    </form>
+
+    <div id="passengerDetailsContainer"></div>
+
+    <script>
+        function getPassengerDetails() {
+            var id = document.getElementById("id").value;
+            var xml = document.getElementById("xml").checked ? "true" : "";
+
+            // Construct the URL for the API endpoint
+            var apiUrl = "/passenger/" + id + "?xml=" + xml;
+
+            // Fetch data from the server
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // Display the retrieved data
+                    displayPassengerDetails(data);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        function displayPassengerDetails(data) {
+            var detailsContainer = document.getElementById("passengerDetailsContainer");
+            detailsContainer.innerHTML = `
+                <h2>Passenger Details</h2>
+                <p>ID: ${data.id}</p>
+                <p>Name: ${data.firstname} ${data.lastName}</p>
+                <p>Age: ${data.age}</p>
+                <p>Gender: ${data.gender}</p>
+                <p>Phone: ${data.phone}</p>
+                <p>Reservations: ${data.reservations.length}</p>
+            `;
+        }
+    </script>
+</body>
+
+</html>

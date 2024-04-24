@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="checkbox"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #flightDetails {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #flightDetails h2,
+        #flightDetails h3 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        #flightDetails p {
+            margin: 5px 0;
+        }
+
+        #flightDetails ul {
+            padding-left: 20px;
+            margin: 5px 0;
+        }
+
+        #flightDetails li {
+            list-style-type: circle;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Get Flight Information</h1>
+    <form id="flightForm">
+        <label for="flightNumber">Enter Flight Number:</label><br>
+        <input type="text" id="flightNumberInput" name="flightNumber"><br>
+        <input type="checkbox" id="xml" name="xml" value="true">
+        <label for="xml">Return XML</label><br>
+        <button type="button" onclick="getFlightDetails()">Get Details</button>
+    </form>
+
+    <div id="flightDetails"></div>
+
+    <script>
+        function getFlightDetails() {
+            var flightNumber = document.getElementById("flightNumberInput").value;
+            var useXml = document.getElementById("xml").checked;
+
+            var url = "/flight/" + encodeURIComponent(flightNumber);
+            if (useXml) {
+                url += "?xml=true";
+            }
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    displayFlightDetails(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById("flightDetails").innerHTML = "Error retrieving flight details.";
+                });
+        }
+
+        function displayFlightDetails(data) {
+            var detailsHTML = "<h2>Flight Details</h2>";
+            detailsHTML += "<p><strong>Flight Number:</strong> " + data.flightNumber + "</p>";
+            detailsHTML += "<p><strong>Price:</strong> $" + data.price + "</p>";
+            detailsHTML += "<p><strong>Origin:</strong> " + data.origin + "</p>";
+            detailsHTML += "<p><strong>Destination:</strong> " + data.destination + "</p>";
+            detailsHTML += "<p><strong>Departure Time:</strong> " + new Date(data.departureTime).toLocaleString() + "</p>";
+            detailsHTML += "<p><strong>Arrival Time:</strong> " + new Date(data.arrivalTime).toLocaleString() + "</p>";
+            detailsHTML += "<p><strong>Seats Left:</strong> " + data.seatsLeft + "</p>";
+            detailsHTML += "<p><strong>Description:</strong> " + data.description + "</p>";
+
+            // Plane details
+            detailsHTML += "<h3>Plane Details</h3>";
+            detailsHTML += "<p><strong>ID:</strong> " + data.plane.id + "</p>";
+            detailsHTML += "<p><strong>Model:</strong> " + data.plane.model + "</p>";
+            detailsHTML += "<p><strong>Capacity:</strong> " + data.plane.capacity + "</p>";
+            detailsHTML += "<p><strong>Manufacturer:</strong> " + data.plane.manufacturer + "</p>";
+            detailsHTML += "<p><strong>Year of Manufacture:</strong> " + data.plane.yearOfManufacture + "</p>";
+
+            // Passengers
+            if (data.passengers.length > 0) {
+                detailsHTML += "<h3>Passengers</h3>";
+                detailsHTML += "<ul>";
+                data.passengers.forEach(function (passenger) {
+                    detailsHTML += "<li>" + passenger.name + "</li>";
+                });
+                detailsHTML += "</ul>";
+            } else {
+                detailsHTML += "<p>No passengers on this flight.</p>";
+            }
+
+            document.getElementById("flightDetails").innerHTML = detailsHTML;
+        }
+    </script>
+</body>
+
+</html>
