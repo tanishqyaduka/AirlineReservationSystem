@@ -6,6 +6,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Reservation</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="submit"]:focus {
+            outline: none;
+        }
+
         .success-message {
             display: none;
             color: green;
@@ -19,13 +73,13 @@
 <body>
     <h1>Create Reservation</h1>
     <form id="reservationForm" action="/reservation" method="POST">
-        <label for="passengerId">Passenger ID:</label><br>
+        <label for="passengerId">Passenger ID:</label>
         <input type="text" id="passengerId" name="passengerId" required><br>
 
-        <label for="flightNumbers">Flight Numbers (comma separated):</label><br>
+        <label for="flightNumbers">Flight Numbers (comma separated):</label>
         <input type="text" id="flightNumbers" name="flightNumbers" required><br>
 
-        <label for="xml">XML (optional):</label><br>
+        <label for="xml">XML (optional):</label>
         <input type="text" id="xml" name="xml"><br>
 
         <input type="submit" value="Submit">

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airline Reservation System</title>
+    <style>
+        /* Resetting default margin and padding */
+        body,
+        button {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Setting a background color and font family */
+        body {
+            background-color: #f2f2f2;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Centering the heading */
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Styling buttons */
+        button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Hover effect for buttons */
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to Airline Reservation System</h1>
+    <button onclick="location.href='/updateFlights'">Update Flights</button>
+    <button onclick="location.href='/cancelReservation'">Cancel Reservation</button>
+    <button onclick="location.href='/createPassenger'">Create Passenger</button>
+    <button onclick="location.href='/createReservation'">Create Reservation</button>
+    <button onclick="location.href='/deleteFlight'">Delete Flight</button>
+    <button onclick="location.href='/deletePassenger'">Delete Passenger</button>
+    <button onclick="location.href='/getPassenger'">Get Passenger Details</button>
+    <button onclick="location.href='/getReservation'">Get Reservation</button>
+    <button onclick="location.href='/displayFlights'">Display Flights</button>
+    <button onclick="location.href='/dispPartFlight'">Display Particular Flight Details</button>
+    <button onclick="location.href='/updatePassenger'">Update Passenger</button>
+    <button onclick="location.href='/updateReservation'">Update Reservation</button>
+</body>
+
+</html>
