@@ -61,3 +61,30 @@ Caused by: java.lang.Error: Unresolved compilation problem:
 	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:195) ~[spring-beans-6.1.6.jar:6.1.6]
 	... 19 common frames omitted
 
+2024-04-26T19:51:06.662+05:30  INFO 5060 --- [AirlineReservationSystem] [main] .e.A.AirlineReservationSystemApplication : Starting AirlineReservationSystemApplication using Java 22 with PID 5060 (D:\AirlineReservationSystem\target\classes started by Tanishq Yaduka in D:\AirlineReservationSystem)
+2024-04-26T19:51:06.670+05:30  INFO 5060 --- [AirlineReservationSystem] [main] .e.A.AirlineReservationSystemApplication : No active profile set, falling back to 1 default profile: "default"
+2024-04-26T19:51:08.583+05:30  INFO 5060 --- [AirlineReservationSystem] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-26T19:51:08.747+05:30  INFO 5060 --- [AirlineReservationSystem] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 149 ms. Found 4 JPA repository interfaces.
+2024-04-26T19:51:10.261+05:30  INFO 5060 --- [AirlineReservationSystem] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2024-04-26T19:51:10.292+05:30  INFO 5060 --- [AirlineReservationSystem] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-04-26T19:51:10.294+05:30  INFO 5060 --- [AirlineReservationSystem] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.20]
+2024-04-26T19:51:10.464+05:30  INFO 5060 --- [AirlineReservationSystem] [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-04-26T19:51:10.464+05:30  INFO 5060 --- [AirlineReservationSystem] [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3588 ms
+2024-04-26T19:51:10.750+05:30  INFO 5060 --- [AirlineReservationSystem] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-26T19:51:10.853+05:30  INFO 5060 --- [AirlineReservationSystem] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-04-26T19:51:10.904+05:30  INFO 5060 --- [AirlineReservationSystem] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-04-26T19:51:11.246+05:30  INFO 5060 --- [AirlineReservationSystem] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-04-26T19:51:11.294+05:30  INFO 5060 --- [AirlineReservationSystem] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-04-26T19:51:12.156+05:30  INFO 5060 --- [AirlineReservationSystem] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@26ffd2c0
+2024-04-26T19:51:12.156+05:30  INFO 5060 --- [AirlineReservationSystem] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-04-26T19:51:12.720+05:30  WARN 5060 --- [AirlineReservationSystem] [main] org.hibernate.id.UUIDHexGenerator        : HHH000409: Using org.hibernate.id.UUIDHexGenerator which does not generate IETF RFC 4122 compliant UUID values; consider using org.hibernate.id.UUIDGenerator instead
+2024-04-26T19:51:13.792+05:30  INFO 5060 --- [AirlineReservationSystem] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-04-26T19:51:14.019+05:30  INFO 5060 --- [AirlineReservationSystem] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-26T19:51:14.638+05:30  WARN 5060 --- [AirlineReservationSystem] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-26T19:51:15.778+05:30  INFO 5060 --- [AirlineReservationSystem] [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+2024-04-26T19:51:15.802+05:30  INFO 5060 --- [AirlineReservationSystem] [main] .e.A.AirlineReservationSystemApplication : Started AirlineReservationSystemApplication in 10.171 seconds (process running for 10.996)
+2024-04-26T19:51:23.880+05:30  INFO 5060 --- [AirlineReservationSystem] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-26T19:51:23.880+05:30  INFO 5060 --- [AirlineReservationSystem] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-04-26T19:51:23.894+05:30  INFO 5060 --- [AirlineReservationSystem] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2024-04-26T19:51:24.861+05:30  WARN 5060 --- [AirlineReservationSystem] [http-nio-8080-exec-2] o.s.web.servlet.PageNotFound             : No mapping for GET /favicon.ico
+2024-04-26T19:51:24.892+05:30  WARN 5060 --- [AirlineReservationSystem] [http-nio-8080-exec-2] o.s.web.servlet.PageNotFound             : No endpoint GET /favicon.ico.
